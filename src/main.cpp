@@ -331,12 +331,12 @@ void BirdUpdate() {
 
   birdspeed += currentjumpingCurve[0];
 
+  //Test
 
+    //bird.posY += currentjumpingCurve[0];
 
-  //bird.posY += currentjumpingCurve[0];
-
-  //Normale Gravität, auf den Vogel
-  //bird.posY += 1;
+    //Normale Gravität, auf den Vogel
+    //bird.posY += 1;
   birdspeed += 0.1;
 
   //setzt currenjumpingcurve ein index weiter für, für den nächsten durchlauf
