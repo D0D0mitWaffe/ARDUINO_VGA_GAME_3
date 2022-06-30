@@ -10,23 +10,23 @@ VGAXUtils vgaU;
 
 class GameObject {
 public:
-  int posX;
-  int posY;
-  int posXold;
-  int posYold;
-  int scaleX;
-  int scaleY;
-  int color;      // 0 = Black || 1 = Grün || 2 = Rot || 3 = Geld
+	int posX;
+	int posY;
+	int posXold;
+	int posYold;
+	int scaleX;
+	int scaleY;
+	int color;      // 0 = Black || 1 = Grün || 2 = Rot || 3 = Geld
 
-  GameObject(int _posX = 0, int _posY = 0, int _posXold = 0, int _posYold = 0, int _scaleX = 1, int _scaleY = 1, int _color = 2) {
-    posX = _posX;
-    posY = _posY;
-    posXold = _posXold;
-    posYold = _posYold;
-    scaleX = _scaleX;
-    scaleY = _scaleY;
-    color = _color;
-  }
+	GameObject(int _posX = 0, int _posY = 0, int _posXold = 0, int _posYold = 0, int _scaleX = 1, int _scaleY = 1, int _color = 2) {
+		posX = _posX;
+		posY = _posY;
+		posXold = _posXold;
+		posYold = _posYold;
+		scaleX = _scaleX;
+		scaleY = _scaleY;
+		color = _color;
+	}
 
 
 };
@@ -191,7 +191,7 @@ static const char str521[] PROGMEM = "Untermenue 3";
 char str1000[] = "Untermenue 3";
 
 void vgaPrint(const char* str, byte x, byte y, byte color) {            // x = 0 - 119 -> Resolution on X || Y = 0 - 59 || Resolution on Y
-  vga.printPROGMEM((byte*)fnt_nanofont_data, FNT_NANOFONT_SYMBOLS_COUNT, FNT_NANOFONT_HEIGHT, 3, 1, str, x, y, color);
+	vga.printPROGMEM((byte*)fnt_nanofont_data, FNT_NANOFONT_SYMBOLS_COUNT, FNT_NANOFONT_HEIGHT, 3, 1, str, x, y, color);
 }
 
 int moveX = 1;
@@ -205,30 +205,30 @@ int testold = 0;
 
 void DrawGameObject(GameObject& g/* = GameObject(1, 1, 0, 0, 4, 4, red)*/, bool* isMoving = false) {
 
-  if (g.posX != g.posXold || g.posY != g.posYold) {
-    vga.fillrect(g.posXold, g.posYold, g.scaleX, g.scaleY, black);
-    g.posXold = g.posX;
-    g.posYold = g.posY;
-    *isMoving = true;
-  }
+	if (g.posX != g.posXold || g.posY != g.posYold) {
+		vga.fillrect(g.posXold, g.posYold, g.scaleX, g.scaleY, black);
+		g.posXold = g.posX;
+		g.posYold = g.posY;
+		*isMoving = true;
+	}
 
-  vga.fillrect(g.posX, g.posY, g.scaleX, g.scaleY, g.color);
+	vga.fillrect(g.posX, g.posY, g.scaleX, g.scaleY, g.color);
 }
 
 bool CollisionCheck(GameObject g1 = GameObject(1, 1, 0, 0, 4, 4, red), GameObject g2 = GameObject(1, 1, 0, 0, 4, 4, red)) {
-  int g1_posXmax = g1.posX + g1.scaleX - 1;
-  int g2_posXmax = g2.posX + g2.scaleX - 1;
+	int g1_posXmax = g1.posX + g1.scaleX - 1;
+	int g2_posXmax = g2.posX + g2.scaleX - 1;
 
-  if (g1.posX <= g2.posX && g1_posXmax >= g2.posX || g1.posX <= g2_posXmax && g1_posXmax >= g2_posXmax) {
-    int g1_posYmax = g1.posY + g1.scaleY - 1;
-    int g2_posYmax = g2.posY + g2.scaleY - 1;
-    if (g1.posY <= g2.posY && g1_posYmax >= g2.posY || g1.posY <= g2_posYmax && g1_posYmax >= g2_posYmax)return true;
-  }
+	if ((g1.posX <= g2.posX && g1_posXmax >= g2.posX) || (g1.posX <= g2_posXmax && g1_posXmax >= g2_posXmax)) {
+		int g1_posYmax = g1.posY + g1.scaleY - 1;
+		int g2_posYmax = g2.posY + g2.scaleY - 1;
+		if ((g1.posY <= g2.posY && g1_posYmax >= g2.posY) || (g1.posY <= g2_posYmax && g1_posYmax >= g2_posYmax))return true;
+	}
 
-  return false;
+	return false;
 
-  if (g1.posX == g2.posX && g1.posY == g2.posY)return true;
-  return false;
+	if (g1.posX == g2.posX && g1.posY == g2.posY)return true;
+	return false;
 }
 
 GameObject movingCube = GameObject(1, 1, 0, 0, 4, 4, red);
@@ -239,59 +239,59 @@ GameObject g;
 
 void RandomPosition() {
 
-  if (firstObject) {
-    int RPosX = random(0, 119);
-    int RPosY = random(0, 59);
-    g = GameObject(RPosX, RPosY, RPosX, RPosY, 2, 2, yellow);
-    firstObject = false;
-  }
-  else if (CollisionCheck(movingCube, g)) {
-    vga.fillrect(g.posX, g.posY, g.scaleX, g.scaleY, black);
-    int RPosX = random(0, 119);
-    int RPosY = random(0, 59);
-    g = GameObject(RPosX, RPosY, RPosX, RPosY, 2, 2, yellow);
-  }
-  vga.fillrect(g.posX, g.posY, g.scaleX, g.scaleY, g.color);
+	if (firstObject) {
+		int RPosX = random(0, 119);
+		int RPosY = random(0, 59);
+		g = GameObject(RPosX, RPosY, RPosX, RPosY, 2, 2, yellow);
+		firstObject = false;
+	}
+	else if (CollisionCheck(movingCube, g)) {
+		vga.fillrect(g.posX, g.posY, g.scaleX, g.scaleY, black);
+		int RPosX = random(0, 119);
+		int RPosY = random(0, 59);
+		g = GameObject(RPosX, RPosY, RPosX, RPosY, 2, 2, yellow);
+	}
+	vga.fillrect(g.posX, g.posY, g.scaleX, g.scaleY, g.color);
 }
 
 
 void drawBloguntermenu() {
-  /*
-  //Basis aus Schrift
-  vga
-  Print(str518, 20, 2, yellow);
-  vgaPrint(str519, 38, 12, yellow);
-  vgaPrint(str520, 38, 20, yellow);
-  vgaPrint(str521, 38, 28, yellow);
-  */
-  //GameObject gameobject(12, 123);
-  //String hello = String(t.xpos);
+	/*
+	//Basis aus Schrift
+	vga
+	Print(str518, 20, 2, yellow);
+	vgaPrint(str519, 38, 12, yellow);
+	vgaPrint(str520, 38, 20, yellow);
+	vgaPrint(str521, 38, 28, yellow);
+	*/
+	//GameObject gameobject(12, 123);
+	//String hello = String(t.xpos);
 
-  //Die vier eck Pixel als "Border"
-  vga.putpixel(0, 0, red);
-  vga.putpixel(0, 59, red);
-  vga.putpixel(119, 0, red);
-  vga.putpixel(119, 59, red);
-
-
-  bool isMoving;
-  //Position des Objectes neu zeichnen und alte Position überzeichnen
-  DrawGameObject(movingCube, &isMoving);
-  if (isMoving) RandomPosition();
+	//Die vier eck Pixel als "Border"
+	vga.putpixel(0, 0, red);
+	vga.putpixel(0, 59, red);
+	vga.putpixel(119, 0, red);
+	vga.putpixel(119, 59, red);
 
 
-  movingCube.posYold = movingCube.posY;
-  if (digitalRead(53) == 1)movingCube.posY++;             //Knopf hoch gedrückt
-  if (digitalRead(50) == 1)movingCube.posY--;             //Knopf runter gedrückt
-  if (movingCube.posY >= 59)movingCube.posY = 0;
-  if (movingCube.posY < 0)movingCube.posY = 59;
+	bool isMoving;
+	//Position des Objectes neu zeichnen und alte Position überzeichnen
+	DrawGameObject(movingCube, &isMoving);
+	if (isMoving) RandomPosition();
 
 
-  movingCube.posXold = movingCube.posX;
-  if (digitalRead(52) == 1)movingCube.posX++;             //Knopf rechts gedrückt
-  if (digitalRead(51) == 1)movingCube.posX--;             //Knopf links gedrückt
-  if (movingCube.posX >= 119)movingCube.posX = 0;
-  if (movingCube.posX < 0)movingCube.posX = 119;
+	movingCube.posYold = movingCube.posY;
+	if (digitalRead(53) == 1)movingCube.posY++;             //Knopf hoch gedrückt
+	if (digitalRead(50) == 1)movingCube.posY--;             //Knopf runter gedrückt
+	if (movingCube.posY >= 59)movingCube.posY = 0;
+	if (movingCube.posY < 0)movingCube.posY = 59;
+
+
+	movingCube.posXold = movingCube.posX;
+	if (digitalRead(52) == 1)movingCube.posX++;             //Knopf rechts gedrückt
+	if (digitalRead(51) == 1)movingCube.posX--;             //Knopf links gedrückt
+	if (movingCube.posX >= 119)movingCube.posX = 0;
+	if (movingCube.posX < 0)movingCube.posX = 119;
 }
 
 //Wichtig Funktion
@@ -309,75 +309,75 @@ float birdspeed = 0;
 float birdposfloat = 0;
 
 void BirdUpdate() {
-  //Serial.println(digitalRead(51));
+	//Serial.1ln(digitalRead(51));
 
-  //sprigen knopfdruck
-  if (digitalRead(51)) {
+	//sprigen knopfdruck
+	if (digitalRead(51)) {
 
-    if (button_51LastPressed == false) {
-      button_51LastPressed = true;
+		if (button_51LastPressed == false) {
+			button_51LastPressed = true;
 
-      //hier aktionen bei sprungknof einfügen
-      //birdspeed -= 10;
-      for (int i = 0; i < 3;i++) {
-        currentjumpingCurve[i] += defaultjumpingCurve[i];
-        birdspeed /= 3;
-      }
-    }
-  }
-  else {
-    button_51LastPressed = false;
-  }
+			//hier aktionen bei sprungknof einfügen
+			//birdspeed -= 10;
+			for (int i = 0; i < 3;i++) {
+				currentjumpingCurve[i] += defaultjumpingCurve[i];
+				birdspeed /= 3;
+			}
+		}
+	}
+	else {
+		button_51LastPressed = false;
+	}
 
-  birdspeed += currentjumpingCurve[0];
+	birdspeed += currentjumpingCurve[0];
 
-  //Test
+	//Test
 
-    //bird.posY += currentjumpingCurve[0];
+	  //bird.posY += currentjumpingCurve[0];
 
-    //Normale Gravität, auf den Vogel
-    //bird.posY += 1;
-  birdspeed += 0.1;
+	  //Normale Gravität, auf den Vogel
+	  //bird.posY += 1;
+	birdspeed += 0.1;
 
-  //setzt currenjumpingcurve ein index weiter für, für den nächsten durchlauf
-//currentjumpingCurve[a++];
+	//setzt currenjumpingcurve ein index weiter für, für den nächsten durchlauf
+  //currentjumpingCurve[a++];
 
-  for (int i = 0; i < 2;i++) {
-    //int ia = currentjumpingCurve[a++];
-    //currentjumpingCurve[a] = ia;
-    currentjumpingCurve[i] = currentjumpingCurve[i + 1];
-  }
+	for (int i = 0; i < 2;i++) {
+		//int ia = currentjumpingCurve[a++];
+		//currentjumpingCurve[a] = ia;
+		currentjumpingCurve[i] = currentjumpingCurve[i + 1];
+	}
 
-  //currentjumpingCurve[0] = currentjumpingCurve[1];
-  //currentjumpingCurve[1] = currentjumpingCurve[2];
-  currentjumpingCurve[2] = 0;
-
-
-  //Maximal und Minimalwert der Geschwindigkeit
-  if (birdspeed > 2) birdspeed = 2;
-  else if (birdspeed < -2) birdspeed = -2;
+	//currentjumpingCurve[0] = currentjumpingCurve[1];
+	//currentjumpingCurve[1] = currentjumpingCurve[2];
+	currentjumpingCurve[2] = 0;
 
 
-  //Birdspeed wird auf die Position übertragen, zunächst als float
-  birdposfloat += birdspeed;
-
-  //Generelle Kontrollen damit der Bird im Sichbaren Bereich bleibt
-
+	//Maximal und Minimalwert der Geschwindigkeit
+	if (birdspeed > 2) birdspeed = 2;
+	else if (birdspeed < -2) birdspeed = -2;
 
 
-  if (birdposfloat >= 59) {						//Nicht Tiefer/höher als 59 px
-    birdposfloat = 0;
-  }
-  else if (birdposfloat < 0) {
-    birdposfloat = 59;
-  }
+	//Birdspeed wird auf die Position übertragen, zunächst als float
+	birdposfloat += birdspeed;
+
+	//Generelle Kontrollen damit der Bird im Sichbaren Bereich bleibt
 
 
 
+	if (birdposfloat >= 59) {						//Nicht Tiefer/höher als 59 px
+		birdposfloat = 0;
+	}
+	else if (birdposfloat < 0) {
+		birdposfloat = 59;
+	}
 
-  bird.posY = round(birdposfloat);
 
-  DrawGameObject(bird);
+
+
+	bird.posY = round(birdposfloat);
+
+	DrawGameObject(bird);
 
 }
 
@@ -389,110 +389,144 @@ GameObject block1_U = GameObject(60, 40, 60, 40, 1, 20, green);
 GameObject block2_O = GameObject(120, 0, 120, 0, 1, 25, green);
 GameObject block2_U = GameObject(120, 40, 120, 40, 1, 20, green);
 void EnvironmentUpdate() {
-  //Blöcke werden erstellt
+	//Blöcke werden erstellt
 
-  //DrawGameObject(block1);
-  //DrawGameObject(block2);
+	//DrawGameObject(block1);
+	//DrawGameObject(block2);
 
-  block1_O.posX--;
-  block1_U.posX--;
-
-
-  if (block1_O.posX == -1) {
-    //das dritte ist ScaleX. Den muss man ändern, wenn man scale x von den Balken ändert
-    vga.fillrect(0, 0, 1, 60, black);
-    int rnd = random(5, 40);
-    block1_O.scaleY = rnd;
-    block1_U.scaleY = 45 - rnd;
-    block1_U.posY = rnd + 15;
-    block1_O.posX = 120;
-    block1_U.posX = 120;
-
-  }
-
-  DrawGameObject(block1_O);
-  DrawGameObject(block1_U);
+	block1_O.posX--;
+	block1_U.posX--;
 
 
-  block2_O.posX--;
-  block2_U.posX--;
+	if (block1_O.posX == -1) {
+		//das dritte ist ScaleX. Den muss man ändern, wenn man scale x von den Balken ändert
+		vga.fillrect(0, 0, 1, 60, black);
+		int rnd = random(5, 40);
+		block1_O.scaleY = rnd;
+		block1_U.scaleY = 45 - rnd;
+		block1_U.posY = rnd + 15;
+		block1_O.posX = 120;
+		block1_U.posX = 120;
 
-  if (block2_O.posX == -1) {
-    //das dritte ist ScaleX. Den muss man ändern, wenn man scale x von den Balken ändert
-    vga.fillrect(0, 0, 1, 60, black);
-    int rnd = random(5, 40);
-    block2_O.scaleY = rnd;
-    block2_U.scaleY = 45 - rnd;
-    block2_U.posY = rnd + 15;
-    block2_O.posX = 120;
-    block2_U.posX = 120;
+	}
 
-  }
+	DrawGameObject(block1_O);
+	DrawGameObject(block1_U);
 
-  DrawGameObject(block2_O);
-  DrawGameObject(block2_U);
+
+	block2_O.posX--;
+	block2_U.posX--;
+
+	if (block2_O.posX == -1) {
+		//das dritte ist ScaleX. Den muss man ändern, wenn man scale x von den Balken ändert
+		vga.fillrect(0, 0, 1, 60, black);
+		int rnd = random(5, 40);
+		block2_O.scaleY = rnd;
+		block2_U.scaleY = 45 - rnd;
+		block2_U.posY = rnd + 15;
+		block2_O.posX = 120;
+		block2_U.posX = 120;
+
+	}
+
+	DrawGameObject(block2_O);
+	DrawGameObject(block2_U);
 
 }
 
 int score = 0;
-/*
-sketch_apr26a.ino: In function 'void ScoreUpdate()':
-sketch_apr26a:448: error: initializer fails to determine size of 'strScore'
-sketch_apr26a:448: error: array must be initialized with a brace-enclosed initializer
-initializer fails to determine size of 'strScore'
-*/
 
+void DrawScore() {
+	String s = String(score);
+	int scoreTemp = score;
+	int lenghtOfScore = s.length();
+	int startPositionX = 100; 		//Wir sollten wirklich mal gobal die maximale breite des displays definieren.
+	const int startPositionY = 10; 	//Diese Werte sollten angepasst werden.
+	int digits[lenghtOfScore]; 		//Array für jeden der Ziffern erstellen.
+	for(int i = 0; i < lenghtOfScore; i++) {
+		digits[i] = scoreTemp % 10;
+		scoreTemp /= 10;
+	}
+	//Ja, ich weiß was switch case ist, aber irgendso ein random meinte, dass switch case erst ab 25 cases wirklich vorteile in sachen Performance hat.
+	for(int i = 0; i < lenghtOfScore; i++){
+		int digit = digits[i];
+		if(digit == 0){
+			vgaPrint(str0, startPositionX, startPositionY, red);
+		} else if(digit == 1){
+			vgaPrint(str1, startPositionX, startPositionY, red);
+		} else if(digit == 2){
+			vgaPrint(str2, startPositionX, startPositionY, red);
+		} else if(digit == 3){
+			vgaPrint(str3, startPositionX, startPositionY, red);
+		} else if(digit == 4){
+			vgaPrint(str4, startPositionX, startPositionY, red);
+		} else if(digit == 5){
+			vgaPrint(str5, startPositionX, startPositionY, red);
+		} else if(digit == 6){
+			vgaPrint(str6, startPositionX, startPositionY, red);
+		} else if(digit == 7){
+			vgaPrint(str7, startPositionX, startPositionY, red);
+		} else if(digit == 8){
+			vgaPrint(str8, startPositionX, startPositionY, red);
+		} else if(digit == 9){
+			vgaPrint(str9, startPositionX, startPositionY, red);
+		}
 
+		startPositionX -= 15;		//Auch dies muss noch angepasst werden.
+	}
+}
 
+void CheckScore(){
+	if(bird.posX == block1_O.posX){
+		if((CollisionCheck(bird, block1_O) == false) && (CollisionCheck(bird, block1_U) == false)){
+			score++;
+		} 
+	} else if(bird.posX == block2_O.posX){
+		if ((CollisionCheck(bird, block2_O)) && (CollisionCheck(bird, block2_U) == false)){
+			score++;
+		}
+	}
 
-//static const char str9[] PROGMEM = "9";
-void ScoreUpdate() {
-  if (block1_O.posX == 29) {
-    score++;
-  }
-  //String _score = String(score);
-  //char strScore[] = _score;
-  //vgaPrint(strScore, 59, 20, yellow);
-
+	DrawScore();
 }
 
 void FlappyBird() {
-  vga.putpixel(0, 0, red);
-  vga.putpixel(0, 59, red);
-  vga.putpixel(119, 0, red);
-  vga.putpixel(119, 59, red);
+	vga.putpixel(0, 0, red);
+	vga.putpixel(0, 59, red);
+	vga.putpixel(119, 0, red);
+	vga.putpixel(119, 59, red);
 
 
-  BirdUpdate();
+	BirdUpdate();
 
 
-  EnvironmentUpdate();
-  ScoreUpdate();
+	EnvironmentUpdate();
+	CheckScore();
 
 }
 
 
 void setup() {
-  vga.begin();
-  randomSeed(1);
-  Serial.begin(9600);
+	vga.begin();
+	randomSeed(1);
+	Serial.begin(9600);
 
 
-  //Game
-  //RandomPosition();
+	//Game
+	//RandomPosition();
 
 }
 
 void loop() {
 
-  lolol = lolol + 1;
+	lolol = lolol + 1;
 
 
-  if (lolol >= 2000) {
-    lolol = 0;
-    CurrentFrame++;
-    //drawBloguntermenu();
-    FlappyBird();
-    //RandomPosition()
-  }
+	if (lolol >= 2000) {
+		lolol = 0;
+		CurrentFrame++;
+		//drawBloguntermenu();
+		FlappyBird();
+		//RandomPosition()
+	}
 }
